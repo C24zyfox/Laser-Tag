@@ -1,0 +1,27 @@
+#include <IRremote.h>
+#include <IRremoteInt.h>
+unsigned int powerOn[32] = {204,7399,205,7408,200,4869,204,4874,195,4863,209,4872,203,4864,203,4868,207,4868,201,4870,203,7403,204};
+IRsend irsend;
+int buttonPin = 5;
+int sendPin = 3;
+int bState = 0;
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(13, OUTPUT);
+  pinMode(buttonPin,INPUT);
+  irsend.setSendPin(sendPin);
+   
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+ bState = digitalRead (buttonPin);
+  if (bState == HIGH)
+  {
+  irsend.sendRaw(powerOn,32,38);
+ // Serial.println("Pew!");
+  digitalWrite (13, HIGH);
+  }
+  delay(10);
+  digitalWrite (13, LOW);
+}
